@@ -1,0 +1,34 @@
+name: ClockStopper
+main: com.andoutay.clockstopper.ClockStopper
+version: 0.1.0
+
+description: >
+             Monitors redstone activity and interrupts any circuits that are repeating too quickly.
+
+commands:
+    clockstopper:
+        description: Starts or stops monitoring of
+        usage: 'usage: /<command> <start|stop>'
+
+permissions:
+    clockstopper.*:
+        description: Gives access to all ClockStopper functionality
+        default: false
+        children:
+            clockstopper.start: true
+            clockstopper.stop: true
+            clockstopper.view: true
+            clockstopper.tp: true
+    clockstopper.start:
+        description: Allows the player to start monitoring
+        default: false
+    clockstopper.stop:
+        description: Allows the player to stop monitoring
+        default: false
+    clockstopper.view:
+        description: Allows the player to view suspicious redstone activity
+        default: false
+    clockstopper.tp:
+        description: Allows the player to teleport to suspicious activity
+        default: false
+    

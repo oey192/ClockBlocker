@@ -7,9 +7,13 @@ ClockStopper is a non-resource intensive way to make sure no redstone circuits a
 Commands
 ===
 
-/cs start
+/clockstopper start
 
-/cs stop
+/clockstopper stop
+
+/clockstopper view [page]
+
+/clockstopper tp \<number\>
 
 
 Permissions
