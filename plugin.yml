@@ -1,6 +1,6 @@
 name: ClockBlocker
 main: com.andoutay.clockblocker.ClockBlocker
-version: 0.1.0
+version: 0.1.6
 
 description: >
              Monitors redstone activity and interrupts any circuits that are repeating too quickly.
@@ -8,7 +8,7 @@ description: >
 commands:
     clockblocker:
         description: Starts or stops monitoring of
-        usage: 'usage: /<command> <start|stop>'
+        usage: 'usage: /<command> <start|stop|view|tp>. Use /<command> help for help'
 
 permissions:
     clockblocker.*:
@@ -19,6 +19,8 @@ permissions:
             clockblocker.stop: true
             clockblocker.view: true
             clockblocker.tp: true
+            clockblocker.reload: true
+            clockblocker.version: true
     clockblocker.start:
         description: Allows the player to start monitoring
         default: false
@@ -30,5 +32,11 @@ permissions:
         default: false
     clockblocker.tp:
         description: Allows the player to teleport to suspicious activity
+        default: false
+    clockblocker.reload:
+        description: Allows the player to reload the config file
+        default: false
+    clockblocker.version:
+        description: Allows the player to check the plugin version
         default: false
     
