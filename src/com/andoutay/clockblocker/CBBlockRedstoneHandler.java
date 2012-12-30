@@ -1,4 +1,4 @@
-package com.andoutay.clockstopper;
+package com.andoutay.clockblocker;
 
 import java.util.logging.Logger;
 
