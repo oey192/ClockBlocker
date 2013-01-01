@@ -1,5 +1,5 @@
-stopSignal: false
+stopSignal: true
 replaceBlock: 3
 allowStop: true
 monitorOnLaunch: true
-maxCyclesPerSec: 2
+maxCyclesPerMin: 30

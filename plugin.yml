@@ -1,14 +1,15 @@
 name: ClockBlocker
 main: com.andoutay.clockblocker.ClockBlocker
-version: 0.1.6
+version: 0.2.1
 
 description: >
              Monitors redstone activity and interrupts any circuits that are repeating too quickly.
 
 commands:
     clockblocker:
-        description: Starts or stops monitoring of
+        description: Starts or stops monitoring of redstone activity on the server
         usage: 'usage: /<command> <start|stop|view|tp>. Use /<command> help for help'
+        aliases: cb
 
 permissions:
     clockblocker.*:

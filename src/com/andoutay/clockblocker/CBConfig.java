@@ -6,7 +6,7 @@ public class CBConfig
 {
 	private static Configuration config;
 	
-	public static int replaceBlock, maxCyclesPerSec;
+	public static int replaceBlock, maxCyclesPerMin;
 	public static boolean stopSignal, allowStop, monitorOnLaunch;
 	private static ClockBlocker plugin;
 	
@@ -37,6 +37,6 @@ public class CBConfig
 		stopSignal = config.getBoolean("stopSignal");
 		allowStop = config.getBoolean("allowStop");
 		monitorOnLaunch = config.getBoolean("monitorOnLaunch");
-		maxCyclesPerSec = config.getInt("maxCyclesPerSec");
+		maxCyclesPerMin = config.getInt("maxCyclesPerMin");
 	}
 }
