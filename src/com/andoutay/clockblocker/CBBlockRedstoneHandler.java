@@ -31,7 +31,7 @@ public class CBBlockRedstoneHandler implements Listener
 	@EventHandler
 	public void onBLockRedstone(BlockRedstoneEvent evt)
 	{
-		if (plugin.shouldMonitor() && evt.getNewCurrent() >= 1)// || evt.getBlock().getType() != Material.REDSTONE_WIRE))
+		if (plugin.shouldMonitor() && evt.getNewCurrent() >= 1)
 		{
 			long startTime = System.currentTimeMillis();
 			Location coord = evt.getBlock().getLocation();

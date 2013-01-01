@@ -116,7 +116,7 @@ public class ClockBlocker extends JavaPlugin
 					}
 					catch (IndexOutOfBoundsException e)
 					{
-						sender.sendMessage(chPref + "No suspicious block with id " + num);
+						sender.sendMessage(chPref + "No suspicious block with id " + (num + 1));
 						return true;
 					}
 					
@@ -209,7 +209,7 @@ public class ClockBlocker extends JavaPlugin
 		if (obj instanceof Location)
 		{
 			loc = (Location)obj;
-			return "(" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ") in " + loc.getWorld().getName();
+			return "(" + (int)loc.getX() + ", " + (int)loc.getY() + ", " + (int)loc.getZ() + ") in " + loc.getWorld().getName();
 		}
 		else
 			return obj.toString();
