@@ -7,7 +7,7 @@ public class CBConfig
 	private static Configuration config;
 	
 	public static int replaceBlock, maxCyclesPerMin;
-	public static boolean stopSignal, allowStop, monitorOnLaunch;
+	public static boolean stopSignal, allowStop, monitorOnLaunch, triggerEvents, dropRedstone;
 	private static ClockBlocker plugin;
 	
 	CBConfig(ClockBlocker plugin)
@@ -38,5 +38,7 @@ public class CBConfig
 		allowStop = config.getBoolean("allowStop");
 		monitorOnLaunch = config.getBoolean("monitorOnLaunch");
 		maxCyclesPerMin = config.getInt("maxCyclesPerMin");
+		triggerEvents = config.getBoolean("triggerEvents");
+		dropRedstone = config.getBoolean("dropRedstone");
 	}
 }

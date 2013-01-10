@@ -106,8 +106,8 @@ public class ClockBlocker extends JavaPlugin
 					}
 					catch (NumberFormatException e)
 					{
-						sender.sendMessage(chPref + "Invalid argument");
-						return true;
+						sender.sendMessage(chPref + ChatColor.RED + "Invalid argument");
+						return false;
 					}
 					
 					try
@@ -197,7 +197,8 @@ public class ClockBlocker extends JavaPlugin
 		if (pageNum > numPages) pageNum = numPages;
 		start = (pageNum - 1) * numPerPage;
 		end = (len < pageNum * numPerPage) ? len : pageNum * numPerPage;
-		s.sendMessage(chPref + "Suspicious blocks  # " + ChatColor.AQUA + "Location: " + ChatColor.RED + "offenses" + ChatColor.RESET + "  (" + pageNum + "/" + numPages + ") ");
+		s.sendMessage(chPref + "Suspicious blocks");
+		s.sendMessage("# " + ChatColor.AQUA + "Location: " + ChatColor.RED + "offenses" + ChatColor.RESET + "  (" + pageNum + "/" + numPages + ") ");
 		for (i = start; i < end; i++)
 			s.sendMessage((i + 1) +  " " + ChatColor.AQUA + "" + locToString(points[i]) + ": " + ChatColor.RED + values[i] + ChatColor.RESET);
 		if (len == 0) s.sendMessage("No suspicious blocks found");
