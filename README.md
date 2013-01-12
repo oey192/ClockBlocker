@@ -17,6 +17,8 @@ Commands
 
 /clockblocker reload - reloads the conifguration file
 
+/clockblocker version - shows the current version
+
 
 Permissions
 ===
@@ -52,5 +54,4 @@ maxCyclesPerMin:<br/>
 Set how many times a redstone block can fire per minute before it is considered a "lag threat" and dealt with
 
 dropRedstone:<br/>
-When true, signs placed by
-
+When true, signs placed by ClockBLocker drop the item that they replaced if the server has not been restarted since the redstone item was replaced by a sign

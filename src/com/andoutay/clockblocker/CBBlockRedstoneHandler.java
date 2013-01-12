@@ -3,7 +3,7 @@ package com.andoutay.clockblocker;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class CBBlockRedstoneHandler implements Listener
 {
-	private Logger log = Logger.getLogger("Minecraft");
+	//private Logger log = Logger.getLogger("Minecraft");
 	private long lastTimeChecked;
 	private ClockBlocker plugin;
 	private HashMap<Location, Long> std;
@@ -57,7 +57,7 @@ public class CBBlockRedstoneHandler implements Listener
 			Sign s = (Sign)b.getState();
 			if (s.getLine(1).equalsIgnoreCase("removed by") && s.getLine(2).equalsIgnoreCase("clockblocker"))
 			{
-				String msg = ClockBlocker.chPref + "Removed a piece of redstone clock or other quickly repeating circuit";
+				String msg = ClockBlocker.chPref + "Removed a block of a clock or other quickly repeating circuit";
 				b.setTypeId(0);
 				if (signs.containsKey(b.getLocation()))
 				{
@@ -88,9 +88,7 @@ public class CBBlockRedstoneHandler implements Listener
 	@EventHandler
 	public void onBLockRedstone(BlockRedstoneEvent evt)
 	{
-		long startTime = System.currentTimeMillis();
 		doBlockRedstone(evt);
-		log.info("Done! Took " + ((System.currentTimeMillis() - startTime) / 1000.0) + "s!");
 	}
 	
 	private void doBlockRedstone(BlockRedstoneEvent evt)
