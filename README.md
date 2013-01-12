@@ -1,35 +1,56 @@
-Clockstopper
+ClockBlocker
 ===
 
-ClockStopper is a non-resource intensive way to make sure no redstone circuits are getting out of control on your server. Perfect for large servers where repeating redstone circuits can cause lag issues.
+ClockBlocker is a non-resource intensive way to make sure no redstone circuits are getting out of control on your server. Perfect for large servers where repeating redstone circuits can cause lag issues.
 
 
 Commands
 ===
 
-/clockstopper start
+/clockblocker start - starts monitoring
 
-/clockstopper stop
+/clockblocker stop - stops monitoring
 
-/clockstopper view [page]
+/clockblocker view [page] - shows the log of suspicious blocks
 
-/clockstopper tp \<number\>
+/clockblocker tp \<number\> - teleports the player to the location of a suspicous block based off the number given in the log
+
+/clockblocker reload - reloads the conifguration file
 
 
 Permissions
 ===
 
+clockblocker.start:<br/>
+Allows the player to start monitoring
+
+clockblocker.stop:<br/>
+Allows the player to stop monitoring
+
+clockblocker.view:<br/>
+Allows the player to view suspicious redstone activity
+clockblocker.tp:<br/>
+Allows the player to teleport to suspicious activity
+
+clockblocker.reload:<br/>
+Allows the player to reload the config file
+
+clockblocker.version:<br/>
+Allows the player to check the plugin version
+
 
 Configuration
 ===
 
-stopSignal: when set to true, the plugin will stop any signals that fire too quickly. When set to false, it will use the data value from the next config line and replace the redstone block with the block whose ID is specified
+allowStop:<br/>
+When true, users with appropriate permissions can start and stop monitoring redstone activity
 
-replaceBlock: the ID of the block which you would like to replace offending redstone with. If stopSignal is set to true, this value is irrelevent
+monitorOnLaunch:<br/>
+When true, the plugin will begin monitoring redstone activity when it is enabled. When false, it will only start monitoring when a player with appropriate permissions issues the command: /clockblocker start
 
-allowStop: when true, users with appropriate permissions can start and stop monitoring redstone activity
+maxCyclesPerMin:<br/>
+Set how many times a redstone block can fire per minute before it is considered a "lag threat" and dealt with
 
-monitorOnLaunch: when true, the plugin will begin monitoring redstone activity when it is enabled. When false, it will only start monitoring when a player with appropriate permissions issues the command: /clockblocker start
-
-maxCyclesPerSec: set how many times a redstone block can fire per second before it is considered a "lag threat" and dealt with
+dropRedstone:<br/>
+When true, signs placed by
 

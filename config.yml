@@ -1,7 +1,4 @@
-stopSignal: true
-replaceBlock: 0
 allowStop: true
 monitorOnLaunch: true
 maxCyclesPerMin: 30
-triggerEvents: true
 dropRedstone: true 

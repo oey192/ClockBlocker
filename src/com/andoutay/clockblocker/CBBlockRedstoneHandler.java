@@ -7,12 +7,14 @@ import java.util.logging.Logger;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class CBBlockRedstoneHandler implements Listener
@@ -22,6 +24,7 @@ public class CBBlockRedstoneHandler implements Listener
 	private ClockBlocker plugin;
 	private HashMap<Location, Long> std;
 	private HashMap<Location, Integer> suspicious;
+	private HashMap<Location, Long> signs;
 	private ArrayList<Location> clockblocks;
 	
 	CBBlockRedstoneHandler(ClockBlocker plugin)
@@ -30,28 +33,53 @@ public class CBBlockRedstoneHandler implements Listener
 		std = new HashMap<Location, Long>();
 		suspicious = new HashMap<Location, Integer>();
 		clockblocks = new ArrayList<Location>();
+		signs = new HashMap<Location, Long>();
 		lastTimeChecked = System.currentTimeMillis();
 	}
 	
 	@EventHandler
-	public void onBlockBreak(BlockBreakEvent evt)
+	public void onSignChange(SignChangeEvent evt)
 	{
 		if (evt.getBlock().getState() instanceof Sign)
 		{
 			Sign s = (Sign)evt.getBlock().getState();
 			if (s.getLine(1).equalsIgnoreCase("removed by") && s.getLine(2).equalsIgnoreCase("clockblocker"))
+				evt.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent evt)
+	{
+		Block b = evt.getBlock();
+		if (b.getState() instanceof Sign)
+		{
+			Sign s = (Sign)b.getState();
+			if (s.getLine(1).equalsIgnoreCase("removed by") && s.getLine(2).equalsIgnoreCase("clockblocker"))
 			{
-				int id = 3;
-				try
+				String msg = ClockBlocker.chPref + "Removed a piece of redstone clock or other quickly repeating circuit";
+				b.setTypeId(0);
+				if (signs.containsKey(b.getLocation()))
 				{
-					id = Integer.parseInt(s.getLine(3));
+					int id = 0;
+					boolean foundNum = true;
+					try
+					{
+						id = Integer.parseInt(s.getLine(3));
+					}
+					catch (NumberFormatException e)
+					{
+						foundNum = false;
+					}
+					
+					if (foundNum && evt.getPlayer().getGameMode() != GameMode.CREATIVE)
+					{
+						World w = evt.getBlock().getWorld();
+						w.dropItemNaturally(b.getLocation(), new ItemStack(id));
+					}
+					msg += " " + parseTime(System.currentTimeMillis() - signs.get(b.getLocation())) + " ago";
 				}
-				catch (NumberFormatException e)
-				{
-
-				}
-				evt.getBlock().setTypeId(0);
-				if (evt.getPlayer().getGameMode() != GameMode.CREATIVE) evt.getPlayer().getInventory().addItem(new ItemStack(id));
+				evt.getPlayer().sendMessage(msg);
 				evt.setCancelled(true);
 			}
 		}
@@ -87,7 +115,7 @@ public class CBBlockRedstoneHandler implements Listener
 				suspicious.put(coord, suspicious.get(coord) + 1);
 			else if (clockblocks.contains(coord))
 			{
-				if (CBConfig.stopSignal) evt.setNewCurrent(0);
+				evt.setNewCurrent(0);
 				makeSign(evt, coord);
 			}
 			else
@@ -119,8 +147,9 @@ public class CBBlockRedstoneHandler implements Listener
 			s = (Sign) b.getState();
 			s.setLine(1, "Removed by");
 			s.setLine(2, "ClockBlocker");
-			s.setLine(3, "" + oldId);//TODO: add SignChangeEvent listener, cancel that event if block is a sign and the first two lines match
+			s.setLine(3, "" + oldId);
 			s.update();
+			signs.put(b.getLocation(), System.currentTimeMillis());
 		}
 		
 		clockblocks.remove(coord);
@@ -129,5 +158,19 @@ public class CBBlockRedstoneHandler implements Listener
 	public HashMap<Location, Integer> getSuspicious()
 	{
 		return suspicious;
+	}
+	
+	public static String parseTime(Long timestamp)
+	{
+		timestamp /= 1000;
+		String h, m, s;
+		long hour, min, sec;
+		hour = timestamp / 3600;
+		min = (timestamp - hour * 3600) / 60;
+		sec = timestamp- hour * 3600 - min * 60;
+		h = (hour == 1) ? "hour" : "hours";
+		m = (min == 1) ? "min" : "mins";
+		s = (sec == 1) ? "sec" : "secs";
+		return hour + " " + h + " " + min + " " + m + " " + sec + " " + s;
 	}
 }
