@@ -31,6 +31,7 @@ Allows the player to stop monitoring
 
 clockblocker.view:<br/>
 Allows the player to view suspicious redstone activity
+
 clockblocker.tp:<br/>
 Allows the player to teleport to suspicious activity
 
@@ -44,6 +45,9 @@ Allows the player to check the plugin version
 Configuration
 ===
 
+replaceBlock:<br/>
+The block id that should replace redstone when the redstone repeats too quickly. Note this should not be a valuable block as blocks created this way will drop normally once the server has restarted
+
 allowStop:<br/>
 When true, users with appropriate permissions can start and stop monitoring redstone activity
 
@@ -54,4 +58,4 @@ maxCyclesPerMin:<br/>
 Set how many times a redstone block can fire per minute before it is considered a "lag threat" and dealt with
 
 dropRedstone:<br/>
-When true, signs placed by ClockBLocker drop the item that they replaced if the server has not been restarted since the redstone item was replaced by a sign
+When true, blocks placed by ClockBLocker drop the item that they replaced if the server has not been restarted since the redstone item was replaced by a sign

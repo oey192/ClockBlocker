@@ -1,3 +1,4 @@
+replaceBlock: 3
 allowStop: true
 monitorOnLaunch: true
 maxCyclesPerMin: 30

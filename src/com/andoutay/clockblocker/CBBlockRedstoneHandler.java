@@ -3,18 +3,15 @@ package com.andoutay.clockblocker;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-//import java.util.logging.Logger;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
-import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class CBBlockRedstoneHandler implements Listener
@@ -24,7 +21,8 @@ public class CBBlockRedstoneHandler implements Listener
 	private ClockBlocker plugin;
 	private HashMap<Location, Long> std;
 	private HashMap<Location, Integer> suspicious;
-	private HashMap<Location, Long> signs;
+	private HashMap<Location, Long> replacedTime;
+	private HashMap<Location, Integer> replaced;
 	private ArrayList<Location> clockblocks;
 	
 	CBBlockRedstoneHandler(ClockBlocker plugin)
@@ -33,11 +31,12 @@ public class CBBlockRedstoneHandler implements Listener
 		std = new HashMap<Location, Long>();
 		suspicious = new HashMap<Location, Integer>();
 		clockblocks = new ArrayList<Location>();
-		signs = new HashMap<Location, Long>();
+		replacedTime = new HashMap<Location, Long>();
+		replaced = new HashMap<Location, Integer>();
 		lastTimeChecked = System.currentTimeMillis();
 	}
 	
-	@EventHandler
+	/*@EventHandler
 	public void onSignChange(SignChangeEvent evt)
 	{
 		if (evt.getBlock().getState() instanceof Sign)
@@ -81,7 +80,27 @@ public class CBBlockRedstoneHandler implements Listener
 				}
 				evt.getPlayer().sendMessage(msg);
 				evt.setCancelled(true);
+				signs.remove(b.getLocation());
 			}
+		}
+	}*/
+	
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent evt)
+	{
+		Block b = evt.getBlock();
+		if (replacedTime.containsKey(b.getLocation()))
+		{
+			evt.getPlayer().sendMessage(ClockBlocker.chPref + "Removed a block of a clock or other quickly repeating circuit "  + parseTime(System.currentTimeMillis() - replacedTime.get(b.getLocation())) + " ago");
+			if (CBConfig.dropRedstone && evt.getPlayer().getGameMode() != GameMode.CREATIVE)
+			{
+				World w = evt.getBlock().getWorld();
+				w.dropItemNaturally(b.getLocation(), new ItemStack(replaced.get(b.getLocation())));
+			}
+			b.setTypeId(0);
+			replacedTime.remove(b.getLocation());
+			replaced.remove(b.getLocation());
+			evt.setCancelled(true);
 		}
 	}
 
@@ -113,8 +132,13 @@ public class CBBlockRedstoneHandler implements Listener
 				suspicious.put(coord, suspicious.get(coord) + 1);
 			else if (clockblocks.contains(coord))
 			{
+				Block b = evt.getBlock();
+				int oldId = ((ItemStack)b.getDrops().toArray()[0]).getTypeId();
 				evt.setNewCurrent(0);
-				makeSign(evt, coord);
+				b.setTypeId(CBConfig.replaceBlock);
+				replacedTime.put(b.getLocation(), System.currentTimeMillis());
+				replaced.put(b.getLocation(), oldId);
+				clockblocks.remove(coord);
 			}
 			else
 				std.put(coord, startTime);
@@ -134,7 +158,7 @@ public class CBBlockRedstoneHandler implements Listener
 		}
 	}
 	
-	private void makeSign(BlockRedstoneEvent evt, Location coord)
+	/*private void makeSign(BlockRedstoneEvent evt, Location coord)
 	{
 		Block b = evt.getBlock();
 		int oldId = ((ItemStack)b.getDrops().toArray()[0]).getTypeId();
@@ -151,7 +175,7 @@ public class CBBlockRedstoneHandler implements Listener
 		}
 		
 		clockblocks.remove(coord);
-	}
+	}*/
 	
 	public HashMap<Location, Integer> getSuspicious()
 	{
