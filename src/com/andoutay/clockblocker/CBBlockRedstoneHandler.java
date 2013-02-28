@@ -139,6 +139,7 @@ public class CBBlockRedstoneHandler implements Listener
 				replacedTime.put(b.getLocation(), System.currentTimeMillis());
 				replaced.put(b.getLocation(), oldId);
 				clockblocks.remove(coord);
+				plugin.log.info(ClockBlocker.logPref + " Removed wire at " + plugin.locToString(coord));
 			}
 			else
 				std.put(coord, startTime);
