@@ -1,5 +1,7 @@
 package com.andoutay.clockblocker;
 
+import java.util.List;
+
 import org.bukkit.configuration.Configuration;
 
 public class CBConfig
@@ -9,6 +11,7 @@ public class CBConfig
 	public static int maxCyclesPerMin, replaceBlock;
 	public static boolean allowStop, monitorOnLaunch, dropRedstone;
 	private static ClockBlocker plugin;
+	public static List<String> worldBlacklist; 
 	
 	CBConfig(ClockBlocker plugin)
 	{
@@ -38,5 +41,8 @@ public class CBConfig
 		maxCyclesPerMin = config.getInt("maxCyclesPerMin");
 		dropRedstone = config.getBoolean("dropRedstone");
 		replaceBlock = config.getInt("replaceBlock");
+		worldBlacklist = config.getStringList("worldBlacklist");
 	}
+
+	
 }

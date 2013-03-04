@@ -13,7 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ClockBlocker extends JavaPlugin
 {
-	private Logger log = Logger.getLogger("Minecraft");
+	public Logger log = Logger.getLogger("Minecraft");
 	public static String chPref = ChatColor.DARK_RED + "[ClockBlocker] " + ChatColor.RESET;
 	public static String logPref = "[ClockBlocker] ";
 	private boolean monitoringEnabled;
@@ -204,7 +204,7 @@ public class ClockBlocker extends JavaPlugin
 		if (len == 0) s.sendMessage("No suspicious blocks found");
 	}
 	
-	private String locToString(Object obj)
+	public String locToString(Object obj)
 	{
 		Location loc;
 		if (obj instanceof Location)
