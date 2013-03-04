@@ -11,6 +11,7 @@ public class CBConfig
 	public static int maxCyclesPerMin, replaceBlock;
 	public static boolean allowStop, monitorOnLaunch, dropRedstone;
 	private static ClockBlocker plugin;
+	public static List<String> worldBlacklist; 
 	
 	CBConfig(ClockBlocker plugin)
 	{
@@ -40,10 +41,8 @@ public class CBConfig
 		maxCyclesPerMin = config.getInt("maxCyclesPerMin");
 		dropRedstone = config.getBoolean("dropRedstone");
 		replaceBlock = config.getInt("replaceBlock");
+		worldBlacklist = config.getStringList("worldBlacklist");
 	}
 
-	public static List<String> getStringList(String property) {
-		return config.getStringList(property);
-	}
 	
 }

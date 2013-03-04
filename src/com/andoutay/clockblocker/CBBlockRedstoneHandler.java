@@ -115,8 +115,7 @@ public class CBBlockRedstoneHandler implements Listener
 	{
 		if (plugin.shouldMonitor() && evt.getNewCurrent() >= 1)
 		{
-			List<String> blacklist = CBConfig.getStringList("worldBlacklist");
-			if (blacklist.contains(evt.getBlock().getWorld().getName()))
+			if (CBConfig.worldBlacklist.contains(evt.getBlock().getWorld().getName()))
 				return;
 			
 			long startTime = System.currentTimeMillis();
