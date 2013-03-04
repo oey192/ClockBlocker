@@ -1,5 +1,7 @@
 package com.andoutay.clockblocker;
 
+import java.util.List;
+
 import org.bukkit.configuration.Configuration;
 
 public class CBConfig
@@ -39,4 +41,9 @@ public class CBConfig
 		dropRedstone = config.getBoolean("dropRedstone");
 		replaceBlock = config.getInt("replaceBlock");
 	}
+
+	public static List<String> getStringList(String property) {
+		return config.getStringList(property);
+	}
+	
 }

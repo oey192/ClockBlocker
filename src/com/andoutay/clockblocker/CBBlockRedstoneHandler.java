@@ -2,6 +2,7 @@ package com.andoutay.clockblocker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import org.bukkit.GameMode;
@@ -114,6 +115,10 @@ public class CBBlockRedstoneHandler implements Listener
 	{
 		if (plugin.shouldMonitor() && evt.getNewCurrent() >= 1)
 		{
+			List<String> blacklist = CBConfig.getStringList("worldBlacklist");
+			if (blacklist.contains(evt.getBlock().getWorld().getName()))
+				return;
+			
 			long startTime = System.currentTimeMillis();
 			Location coord = evt.getBlock().getLocation();
 			

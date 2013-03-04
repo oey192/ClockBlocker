@@ -3,3 +3,5 @@ allowStop: true
 monitorOnLaunch: true
 maxCyclesPerMin: 30
 dropRedstone: true 
+worldBlacklist: 
+  - events

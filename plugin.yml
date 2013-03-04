@@ -1,6 +1,6 @@
 name: ClockBlocker
 main: com.andoutay.clockblocker.ClockBlocker
-version: 1.0.3
+version: 1.0.4
 
 description: >
              Monitors redstone activity and interrupts any circuits that are repeating too quickly.
