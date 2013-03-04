@@ -19,6 +19,8 @@ Commands
 
 /clockblocker version - shows the current version
 
+Note: /cb is an alias for /clockblocker
+
 
 Permissions
 ===
